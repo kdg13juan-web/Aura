@@ -63,6 +63,17 @@ El proyecto prioriza tres aspectos:
   Agregar capturas y/o video del recorrido de la aplicación:
   ![Aura — vista general en múltiples dispositivos](docs/screenshots/overview.png)
 -->
+[DEMO](C:\Users\kdgar\Desktop\Aura\src\assets\Grabación de pantalla 2026-09-30 212918.mp4)
+
+<div align="center">
+<video src=" " controls width="380"></video>
+</div>
+
+![HOME](C:\Users\kdgar\Desktop\Aura\src\assets\1.png)
+![CALENDARIO](C:\Users\kdgar\Desktop\Aura\src\assets\2.png)
+![TAREAS Y HABITOS](C:\Users\kdgar\Desktop\Aura\src\assets\3.png)
+![CONTACTOS](C:\Users\kdgar\Desktop\Aura\src\assets\4.png)
+![BLOC DE NOTAS](C:\Users\kdgar\Desktop\Aura\src\assets\5.png)
 
 El recorrido cubre las pantallas de autenticación (inicio de sesión, registro y recuperación de contraseña) y el gestor de tareas en acción: filtros, creación, edición y eliminación, marcado como completada, guía de uso integrada y envío del resumen por email.
 
@@ -370,12 +381,3 @@ El proyecto se desarrolló con Claude como copiloto de desarrollo, que asistió 
 - **Iteración hasta alcanzar el nivel de calidad esperado:** varias funcionalidades se implementaron, descartaron y rehicieron porque el resultado no estaba a la altura del resto de la aplicación.
 
 **Decisión de alcance: asistente de IA descartado.** Se implementó un asistente conversacional sobre la API de Gemini (con función serverless, proxy y *system prompt* funcionando). Tras evaluarlo, se descartó deliberadamente: añadía complejidad, dependía de una API key adicional y su valor para el usuario no justificaba el costo. Se priorizó contar con menos funcionalidades bien ejecutadas.
-
----
-
-## Licencia
-
-Distribuido bajo licencia **MIT**. Consulta el archivo [`LICENSE`](LICENSE) para más información.
-=======
-
->>>>>>> 82596bf2fe1e846989f49217c4c3fa2f2df738cc
