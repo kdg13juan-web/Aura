@@ -1,104 +1,123 @@
-# Mate Code App — Gestor de tareas
+<div align="center">
 
-SPA de gestión de tareas desarrollada como proyecto integrador del Módulo 4 de Soy Henry. Permite crear, organizar y hacer seguimiento de tareas con soporte de prioridades, fechas de vencimiento, etiquetas y resumen por email.
+# Aura
 
-[![React](https://img.shields.io/badge/React-19.0-61DAFB?logo=react&logoColor=black&style=flat-spiky)](#)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript&logoColor=white)](#)
-[![Firebase](https://img.shields.io/badge/Firebase-Auth%20%26%20Firestore-FFCA28?logo=firebase&logoColor=black)](#)
-[![AWS SES](https://img.shields.io/badge/AWS%20SES-Email%20Service-232F3E?logo=amazon-aws&logoColor=white)](#)
-[![Vercel](https://img.shields.io/badge/Vercel-Deployment%20%26%20Serverless-000000?logo=vercel&logoColor=white)](#)
-[![Vitest](https://img.shields.io/badge/Vitest-Testing-6E9F18?logo=vitest&logoColor=white)](#)
+**Gestor de tareas full-stack con sincronización en tiempo real, temas personalizables y resúmenes por email.**
 
-**URL de producción:** [https://matecode-task-manager.vercel.app](https://matecode-task-manager.vercel.app)
+[![React](https://img.shields.io/badge/React-19.0-61DAFB?logo=react&logoColor=black&style=flat-square)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript&logoColor=white&style=flat-square)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-Build%20Tool-646CFF?logo=vite&logoColor=white&style=flat-square)](https://vitejs.dev/)
+[![Firebase](https://img.shields.io/badge/Firebase-Auth%20%26%20Firestore-FFCA28?logo=firebase&logoColor=black&style=flat-square)](https://firebase.google.com/)
+[![AWS SES](https://img.shields.io/badge/AWS%20SES-Email%20Service-232F3E?logo=amazon-aws&logoColor=white&style=flat-square)](https://aws.amazon.com/ses/)
+[![Vitest](https://img.shields.io/badge/Vitest-Testing-6E9F18?logo=vitest&logoColor=white&style=flat-square)](https://vitest.dev/)
+[![Vercel](https://img.shields.io/badge/Vercel-Deployment-000000?logo=vercel&logoColor=white&style=flat-square)](https://vercel.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)](#licencia)
+
+[**Ver demo en producción →**](https://aura-drab-ten.vercel.app)
+
+</div>
+
+---
+
+## Tabla de contenidos
+
+- [Descripción general](#descripción-general)
+- [Demo](#demo)
+- [Funcionalidades](#funcionalidades)
+- [Stack tecnológico](#stack-tecnológico)
+- [Arquitectura](#arquitectura)
+- [Estructura del proyecto](#estructura-del-proyecto)
+- [Decisiones técnicas](#decisiones-técnicas)
+- [Primeros pasos](#primeros-pasos)
+- [Variables de entorno](#variables-de-entorno)
+- [Scripts disponibles](#scripts-disponibles)
+- [Flujo del email de resumen](#flujo-del-email-de-resumen)
+- [Seguridad](#seguridad)
+- [Testing](#testing)
+- [Despliegue](#despliegue)
+- [Desarrollo asistido por IA](#desarrollo-asistido-por-ia)
+- [Licencia](#licencia)
+
+---
+
+## Descripción general
+
+**Aura** es una *Single Page Application* para crear, organizar y dar seguimiento a tareas. Cada usuario cuenta con su propio espacio privado y puede asignar prioridades, fechas y horas de vencimiento y etiquetas, además de recibir por email un resumen de sus tareas agrupado por prioridad.
+
+El proyecto prioriza tres aspectos:
+
+- **Experiencia de usuario cuidada:** diseño *mobile-first*, tres temas visuales, *skeletons* sin saltos de layout, deshacer en el borrado y navegación completa por teclado.
+- **Arquitectura mantenible:** componentes que solo describen la interfaz, lógica encapsulada en hooks y comunicación con servicios externos aislada en una capa propia.
+- **Seguridad por diseño:** aislamiento de datos por usuario aplicado tanto en el cliente como en las reglas de Firestore.
 
 ---
 
 ## Demo
 
-<div align="center">
-<img src="https://github.com/user-attachments/assets/70e6bc11-ca6b-41f2-bdb1-86f225ba36f2" alt="MateCode App — vista general en múltiples dispositivos" width="700" />
-</div>
+| | |
+| --- | --- |
+| **Producción** | <https://aura-drab-ten.vercel.app> |
 
-<div align="center">
-<video src="https://github.com/user-attachments/assets/b7683a88-37d7-4e95-ae33-8b0cfed8e6cf" controls width="380"></video>
-</div>
+<!--
+  Agregar capturas y/o video del recorrido de la aplicación:
+  ![Aura — vista general en múltiples dispositivos](docs/screenshots/overview.png)
+-->
 
-Un recorrido completo por MateCode: desde las pantallas de autenticación (login, registro y recuperación de contraseña) hasta el task manager en acción. Se pueden ver los filtros, la creación, edición y eliminación de tareas, el marcado como completadas, la guía de uso integrada, el envío del resumen por email y cómo llega el email al destinatario.
-
----
-
-## Stack
-
-| Capa | Tecnología |
-|---|---|
-| Frontend | React 19 + TypeScript, Vite, Tabler Icons |
-| Auth + DB | Firebase Authentication + Firestore |
-| Email | AWS SES via Vercel Function |
-| Tests | Vitest + React Testing Library |
-| Deploy | Vercel (frontend + serverless functions) |
+El recorrido cubre las pantallas de autenticación (inicio de sesión, registro y recuperación de contraseña) y el gestor de tareas en acción: filtros, creación, edición y eliminación, marcado como completada, guía de uso integrada y envío del resumen por email.
 
 ---
 
 ## Funcionalidades
 
-| Área | Detalle |
-|---|---|
-| **Autenticación** | Login/registro con email o Google · Recuperación de contraseña · Checklist de requisitos en tiempo real · Sesión persistente · Rutas protegidas |
-| **Tareas** | CRUD completo · Campos: título, descripción, prioridad (baja/media/alta), fecha + hora de vencimiento, etiqueta · Sincronización en tiempo real (`onSnapshot`) · Descripciones largas expandibles con "Ver más / Ver menos" |
-| **Borrado** | Undo individual (5 s) · Undo masivo de completadas (10 s) — ambos con toast de "Deshacer" |
-| **Búsqueda y filtros** | Buscador en tiempo real por título, descripción y etiqueta (insensible a acentos) · Filtros: todas / pendientes / completadas · Orden: recientes / prioridad / fecha |
-| **Temas** | Clásico ☀️ / Nocturno 🌙 / Vívido ✨ · Persistidos en Firestore para sincronizar entre dispositivos · Sin flash de tema incorrecto al cargar |
-| **UI / UX** | Vista lista y grilla con toggle · FAB flotante en mobile · Skeletons que respetan la vista activa (sin layout shift) · Toasts en todas las acciones · Navegación por teclado en dropdowns (flechas, Enter, Home/End) · Tareas vencidas siempre en rojo sobre cualquier prioridad |
-| **Email** | Resumen HTML responsive agrupado por prioridad · Acento visual según tema del usuario · Remitente "MateCode" via AWS SES |
-| **Misc** | Dashboard con stats y barra de progreso · Modal de instrucciones de uso · Diseño mobile-first · Iconografía consistente con Tabler Icons |
+### Autenticación y sesión
+- Inicio de sesión y registro con **email y contraseña** o con **Google**.
+- Recuperación de contraseña por email.
+- Checklist de requisitos de contraseña en tiempo real.
+- Sesión persistente y **rutas protegidas** (`ProtectedRoute` / `PublicOnlyRoute`).
+
+### Gestión de tareas
+- **CRUD completo** con los campos: título, descripción, prioridad (baja / media / alta), fecha y hora de vencimiento, y etiqueta.
+- **Sincronización en tiempo real** con Firestore mediante `onSnapshot`.
+- Descripciones largas expandibles con *Ver más / Ver menos*.
+- Las tareas vencidas se resaltan siempre en rojo, independientemente de su prioridad.
+
+### Borrado con deshacer
+- **Deshacer individual** (5 s) al eliminar una tarea.
+- **Deshacer masivo** (10 s) al eliminar todas las completadas.
+- Ambos mediante un *toast* con acción "Deshacer".
+
+### Búsqueda, filtros y orden
+- Buscador en tiempo real por título, descripción y etiqueta, **insensible a acentos**.
+- Filtros: todas / pendientes / completadas.
+- Orden: recientes / prioridad / fecha de vencimiento.
+
+### Personalización y UX
+- Tres temas: **Clásico**, **Nocturno** y **Vívido**, persistidos en Firestore para sincronizarse entre dispositivos y aplicados sin parpadeo al cargar.
+- Vista de **lista** y de **grilla** con alternancia.
+- Botón de acción flotante (FAB) en móvil.
+- *Skeletons* que respetan la vista activa (sin *layout shift*).
+- *Toasts* en todas las acciones y navegación por teclado en los menús desplegables (flechas, Enter, Home/End).
+- Dashboard con estadísticas y barra de progreso.
+- Modal de instrucciones de uso.
+
+### Resumen por email
+- Email HTML *responsive* con las tareas agrupadas por prioridad.
+- Color de acento acorde al tema elegido por el usuario.
+- Envío mediante AWS SES a través de una función serverless de Vercel.
 
 ---
 
-## Instalación local
+## Stack tecnológico
 
-```bash
-git clone <url-del-repo>
-cd ProyectoIntegrador-M4-ACPJ
-npm install
-cp .env.example .env   # completar con credenciales reales
-npm run dev
-# Para probar el email localmente:
-npx vercel dev
-```
-
-| Script | Descripción |
-|---|---|
-| `npm run dev` | Servidor de desarrollo |
-| `npm run build` | Build de producción |
-| `npm run test` | Tests con Vitest |
-| `npm run lint` | ESLint |
-
----
-
-## Variables de entorno
-
-Copiar `.env.example` a `.env` y completar con los valores reales. **Nunca commitear `.env`.**
-
-```env
-# Firebase — prefijo VITE_ obligatorio para que Vite las exponga al cliente
-VITE_FIREBASE_API_KEY=
-VITE_FIREBASE_AUTH_DOMAIN=
-VITE_FIREBASE_PROJECT_ID=
-VITE_FIREBASE_STORAGE_BUCKET=
-VITE_FIREBASE_MESSAGING_SENDER_ID=
-VITE_FIREBASE_APP_ID=
-
-# AWS SES — SIN prefijo VITE_: solo las usa el servidor (Vercel Function)
-AWS_ACCESS_KEY_ID=
-AWS_SECRET_ACCESS_KEY=
-AWS_REGION=
-SES_FROM_EMAIL=
-
-# URL pública de la app (usada en el email de resumen)
-APP_URL=https://matecode-task-manager.vercel.app
-```
-
-> **AWS SES en sandbox:** el email solo llega a direcciones verificadas manualmente en la consola de AWS. Para uso en producción real se requiere solicitar acceso productivo a AWS.
+| Capa | Tecnología |
+| --- | --- |
+| **Frontend** | React 19, TypeScript, Vite, Tabler Icons |
+| **Autenticación y base de datos** | Firebase Authentication, Cloud Firestore |
+| **Email** | AWS SES mediante Vercel Serverless Function |
+| **Estilos** | CSS puro con variables por tema (sin librerías de UI) |
+| **Testing** | Vitest, React Testing Library |
+| **Calidad de código** | ESLint, Oxlint, TypeScript estricto |
+| **Despliegue** | Vercel (frontend + funciones serverless) |
 
 ---
 
@@ -117,7 +136,7 @@ graph TD
         EmailClient -->|POST /api/send-email| SendEmailFunc[send-email.ts]
     end
 
-    subgraph Externos
+    subgraph Externos [Servicios externos]
         FirestoreSDK <--> Firestore[Google Cloud Firestore]
         SendEmailFunc --> SES[Amazon AWS SES]
     end
@@ -125,54 +144,153 @@ graph TD
 
 ### Separación de responsabilidades
 
-Los componentes solo describen qué se muestra. La lógica vive en hooks (`useTasks`, `useTaskItem`, `useAuth`, `useTheme`) y la comunicación con servicios externos en `src/services/`.
-
-```
-src/
-├── hooks/        # useTasks (onSnapshot + CRUD), useAuth (onAuthStateChanged), useTheme, useTaskItem, useViewMode
-├── services/     # firebase.ts (init), firestoreService.ts (CRUD), emailService.ts (POST a la función)
-├── types/        # Task, TaskFormValues, TaskFilter, TaskSort, Theme — interfaces compartidas
-├── utils/        # taskHelpers.ts (filtros, orden, colores), firebaseErrors.ts, format.ts, validate.ts
-├── routes/       # ProtectedRoute, PublicOnlyRoute
-├── pages/        # Login, Register, ForgotPassword, Tasks
-├── components/   # TodoForm, TaskEditForm, TaskCard, TaskGrid, TodoList, CustomSelect, Skeleton...
-└── styles/       # CSS puro con variables por tema (tokens.css + módulos por sección)
-api/
-└── send-email.ts # Vercel Function: valida payload, genera HTML temático, llama a AWS SES
-```
-
-### Decisiones técnicas clave
-
-| Decisión | Por qué |
-|---|---|
-| CSS puro con variables | Tres temas sin librerías. `data-theme` en `<html>` + `color-scheme` por tema para que los controles nativos (pickers de fecha/hora) respeten el modo claro/oscuro |
-| `useLayoutEffect` para temas | Evita flash de tema incorrecto (FOUC) al aplicar `data-theme` antes del primer paint |
-| `onSnapshot` en lugar de `getDocs` | Suscripción persistente: cualquier cambio en Firestore se refleja en la UI sin recargar |
-| `CustomSelect` en lugar de `<select>` nativo | El `<select>` nativo ignora CSS personalizado en todos los SO. `CustomSelect` implementa ARIA listbox completo con navegación de teclado |
-| Función de email autónoma | Con `"type": "module"` en `package.json`, Node.js requiere extensiones `.js` en imports locales al compilar TypeScript. Mantener todo en un solo archivo evita el problema de resolución de módulos en Vercel |
-| Patrón undo en eliminación | El borrado en Firestore es inmediato e irreversible. La tarea desaparece visualmente de inmediato pero se elimina en Firestore después de 5 s (10 s para borrado masivo); un `Map<taskId, timerId>` gestiona las cancelaciones pendientes |
-| Doble capa de seguridad | El cliente filtra con `where('userId', '==', uid)` y las reglas de Firestore validan `request.auth.uid == resource.data.userId`. Aunque alguien manipule el cliente, Firestore rechaza la operación |
+Los componentes solo describen **qué se muestra**. La lógica de negocio vive en hooks (`useTasks`, `useTaskItem`, `useAuth`, `useTheme`) y la comunicación con servicios externos en `src/services/`. Esto permite probar cada capa de forma aislada y reemplazar proveedores sin tocar la interfaz.
 
 ---
 
-## Flujo de email de resumen
+## Estructura del proyecto
 
-1. Usuario hace clic en **Enviar resumen** → `Tasks.tsx` llama a `sendTaskSummary(email, tasks, { name, theme })`
-2. `emailService.ts` formatea fechas en zona horaria local (el servidor corre en UTC) y hace `POST /api/send-email`
-3. La Vercel Function valida el payload y mapea el tema a un color de acento (`classic` → `#4F6EF7`, `midnight` → `#5c7cfa`, `gradient` → `#7c3aed`)
-4. Genera HTML con tareas agrupadas en grid de 2 columnas (tablas anidadas para compatibilidad con clientes de email) y llama a AWS SES con versiones HTML + texto plano
-
-> **Nota:** AWS SES opera en modo sandbox, por lo que el envío solo funciona hacia direcciones verificadas manualmente en la consola de AWS. La funcionalidad está implementada y operativa — la restricción es del entorno de pruebas, no del código.
-
-<div align="center">
-<img src="https://github.com/user-attachments/assets/602726d1-4428-4948-abf1-3a502c7fe62f" alt="Email de resumen de tareas recibido en Gmail" width="380" />
-</div>
+```
+.
+├── api/
+│   └── send-email.ts        # Vercel Function: valida el payload, genera el HTML temático y llama a AWS SES
+├── public/                  # Recursos estáticos
+├── src/
+│   ├── components/          # TodoForm, TaskEditForm, TaskCard, TaskGrid, TodoList, CustomSelect, Skeleton...
+│   ├── hooks/               # useTasks (onSnapshot + CRUD), useAuth, useTheme, useTaskItem, useViewMode
+│   ├── pages/               # Login, Register, ForgotPassword, Tasks
+│   ├── routes/              # ProtectedRoute, PublicOnlyRoute
+│   ├── services/            # firebase.ts (init), firestoreService.ts (CRUD), emailService.ts
+│   ├── styles/              # tokens.css (variables por tema) + módulos CSS por sección
+│   ├── types/               # Task, TaskFormValues, TaskFilter, TaskSort, Theme
+│   └── utils/               # taskHelpers.ts, firebaseErrors.ts, format.ts, validate.ts
+├── tests/                   # Suites de pruebas con Vitest
+├── firestore.rules          # Reglas de seguridad de Firestore
+├── vercel.json              # Configuración de despliegue
+├── vite.config.ts
+├── .env.example             # Plantilla de variables de entorno
+└── package.json
+```
 
 ---
 
-## Seguridad de Firestore
+## Decisiones técnicas
 
+| Decisión | Motivo |
+| --- | --- |
+| **CSS puro con variables** | Permite tres temas sin dependencias. Se usa `data-theme` en `<html>` y `color-scheme` por tema para que los controles nativos (selectores de fecha y hora) respeten el modo claro/oscuro. |
+| **`useLayoutEffect` para los temas** | Aplica `data-theme` antes del primer *paint* y evita el parpadeo de un tema incorrecto (FOUC). |
+| **`onSnapshot` en lugar de `getDocs`** | Mantiene una suscripción persistente: cualquier cambio en Firestore se refleja en la UI sin recargar. |
+| **`CustomSelect` en lugar de `<select>` nativo** | El `<select>` nativo ignora el CSS personalizado en la mayoría de sistemas operativos. `CustomSelect` implementa un *listbox* ARIA completo con navegación por teclado. |
+| **Función de email autónoma** | Con `"type": "module"` en `package.json`, Node.js exige extensiones `.js` en los imports locales al compilar TypeScript. Mantener la función en un único archivo evita problemas de resolución de módulos en Vercel. |
+| **Patrón de deshacer en el borrado** | El borrado en Firestore es inmediato e irreversible. La tarea desaparece de la UI al instante, pero se elimina de Firestore tras 5 s (10 s en borrado masivo); un `Map<taskId, timerId>` gestiona las cancelaciones pendientes. |
+| **Doble capa de seguridad** | El cliente filtra con `where('userId', '==', uid)` y las reglas de Firestore validan `request.auth.uid == resource.data.userId`. Aunque alguien manipule el cliente, Firestore rechaza la operación. |
+
+---
+
+## Primeros pasos
+
+### Requisitos previos
+
+- [Node.js](https://nodejs.org/) (versión LTS reciente) y npm
+- Un proyecto de [Firebase](https://console.firebase.google.com/) con **Authentication** (email/contraseña y Google) y **Firestore** habilitados
+- *(Opcional)* Una cuenta de AWS con **SES** configurado, para probar el envío de emails
+
+### Instalación
+
+```bash
+# 1. Clonar el repositorio
+git clone https://github.com/kdg13juan-web/Aura.git
+cd Aura
+
+# 2. Instalar dependencias
+npm install
+
+# 3. Configurar variables de entorno
+cp .env.example .env
+# Editar .env con las credenciales reales
+
+# 4. Iniciar el servidor de desarrollo
+npm run dev
 ```
+
+Para probar localmente la función serverless de email junto con el frontend:
+
+```bash
+npx vercel dev
+```
+
+---
+
+## Variables de entorno
+
+Copiar `.env.example` a `.env` y completar con los valores reales. **Nunca subir `.env` al repositorio.**
+
+```bash
+# Firebase — el prefijo VITE_ es obligatorio para que Vite las exponga al cliente
+VITE_FIREBASE_API_KEY=
+VITE_FIREBASE_AUTH_DOMAIN=
+VITE_FIREBASE_PROJECT_ID=
+VITE_FIREBASE_STORAGE_BUCKET=
+VITE_FIREBASE_MESSAGING_SENDER_ID=
+VITE_FIREBASE_APP_ID=
+
+# AWS SES — SIN prefijo VITE_: solo las usa el servidor (Vercel Function)
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+AWS_REGION=
+SES_FROM_EMAIL=
+
+# URL pública de la app (usada en el email de resumen)
+APP_URL=https://aura-drab-ten.vercel.app
+```
+
+> [!IMPORTANT]
+> Las variables de AWS **no** deben llevar el prefijo `VITE_`. De lo contrario, Vite las incluiría en el bundle del cliente y quedarían expuestas públicamente.
+
+> [!NOTE]
+> **AWS SES en modo *sandbox*:** el email solo se entrega a direcciones verificadas manualmente en la consola de AWS. Para uso en producción real es necesario solicitar acceso productivo a AWS.
+
+---
+
+## Scripts disponibles
+
+| Script | Descripción |
+| --- | --- |
+| `npm run dev` | Inicia el servidor de desarrollo con recarga en caliente |
+| `npm run build` | Genera el build de producción |
+| `npm run test` | Ejecuta la suite de pruebas con Vitest |
+| `npm run lint` | Analiza el código con ESLint |
+
+---
+
+## Flujo del email de resumen
+
+1. El usuario hace clic en **Enviar resumen** y `Tasks.tsx` invoca `sendTaskSummary(email, tasks, { name, theme })`.
+2. `emailService.ts` formatea las fechas en la zona horaria local del usuario (el servidor corre en UTC) y realiza un `POST /api/send-email`.
+3. La función de Vercel valida el payload y asigna un color de acento según el tema:
+
+   | Tema | Color de acento |
+   | --- | --- |
+   | `classic` | `#4F6EF7` |
+   | `midnight` | `#5c7cfa` |
+   | `gradient` | `#7c3aed` |
+
+4. Se genera un HTML con las tareas agrupadas en una grilla de 2 columnas (tablas anidadas para máxima compatibilidad con clientes de email) y se envía mediante AWS SES en versiones HTML y texto plano.
+
+> [!NOTE]
+> La funcionalidad está implementada y operativa. Mientras AWS SES permanezca en *sandbox*, el envío solo funciona hacia direcciones verificadas; la restricción pertenece al entorno de pruebas, no al código.
+
+---
+
+## Seguridad
+
+Los datos de cada usuario están aislados mediante dos capas complementarias:
+
+1. **Cliente:** las consultas filtran siempre por `userId` (`where('userId', '==', uid)`).
+2. **Servidor:** las reglas de Firestore rechazan cualquier lectura o escritura que no pertenezca al usuario autenticado, e impiden reasignar la propiedad de una tarea.
+
+```js
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
@@ -194,63 +312,66 @@ service cloud.firestore {
 }
 ```
 
----
+Buenas prácticas adicionales:
 
-## Tests
-
-24 tests en 5 archivos · `npm run test`
-
-| Archivo | Qué prueba |
-|---|---|
-| `firebaseErrors.test.ts` | Mapeo de códigos de error Firebase a mensajes legibles · función pura, sin mocks |
-| `emailService.test.ts` | Construcción del payload, formateo de fechas en zona local, manejo de errores del serverless |
-| `taskHelpers.test.ts` | Filtrado y ordenamiento de tareas |
-| `TodoForm.test.tsx` | Validación, envío y manejo de errores del formulario · Firebase mockeado |
-| `TodoList.test.tsx` | Renderizado de lista y acciones · Firebase mockeado |
+- Las credenciales de AWS solo existen en el servidor y nunca se exponen al cliente.
+- `.env` está excluido del control de versiones; `.env.example` documenta la configuración necesaria.
 
 ---
 
-## Desarrollo Asistido por IA
+## Testing
 
-El proyecto se desarrolló usando Claude como copiloto de desarrollo. El modelo asistió en debugging de CSS, validación de patrones de React y generación de casos de prueba; las decisiones de arquitectura, producto y tecnología fueron de mi autoría.
+**24 pruebas en 5 archivos.** Ejecutar con:
 
-### Rol del modelo vs. rol propio
+```bash
+npm run test
+```
 
-| Mi rol (decisiones de producto y arquitectura) | Rol del modelo (ejecución y validación) |
-|---|---|
+| Archivo | Cobertura |
+| --- | --- |
+| `firebaseErrors.test.ts` | Mapeo de códigos de error de Firebase a mensajes legibles. Función pura, sin mocks. |
+| `emailService.test.ts` | Construcción del payload, formateo de fechas en zona local y manejo de errores de la función serverless. |
+| `taskHelpers.test.ts` | Filtrado y ordenamiento de tareas. |
+| `TodoForm.test.tsx` | Validación, envío y manejo de errores del formulario. Firebase mockeado. |
+| `TodoList.test.tsx` | Renderizado de la lista y sus acciones. Firebase mockeado. |
+
+---
+
+## Despliegue
+
+La aplicación se despliega en **Vercel**, que sirve el frontend estático y ejecuta la función `api/send-email.ts` como *serverless function*.
+
+1. Importar el repositorio en [Vercel](https://vercel.com/new).
+2. Configurar en **Settings → Environment Variables** todas las variables descritas en [Variables de entorno](#variables-de-entorno).
+3. Desplegar. Cada *push* a la rama `main` genera un nuevo despliegue automáticamente.
+4. Publicar las reglas de `firestore.rules` desde la consola de Firebase o con la CLI (`firebase deploy --only firestore:rules`).
+5. Agregar el dominio de producción en **Firebase Authentication → Settings → Authorized domains** para que el inicio de sesión con Google funcione.
+
+---
+
+## Desarrollo asistido por IA
+
+El proyecto se desarrolló con Claude como copiloto de desarrollo, que asistió en el diagnóstico de CSS, la validación de patrones de React y la generación de casos de prueba. Las decisiones de arquitectura, producto y tecnología fueron propias.
+
+| Decisiones de producto y arquitectura (autoría propia) | Ejecución y validación (asistida por el modelo) |
+| --- | --- |
 | CSS puro con variables en lugar de Tailwind | Diagnóstico de colisiones de especificidad CSS |
-| Hooks personalizados para separar lógica de UI | Validación del comportamiento de `useLayoutEffect` vs `useEffect` |
-| Persistencia multi-dispositivo de temas en Firestore | Generación de hipótesis de error en los tests de fechas UTC vs. local |
-| Reglas de seguridad de Firestore por UID | Identificación de edge cases en el flujo de onSnapshot |
-| Decisión de descartar el asistente Tyrion/Gemini | Refactors de componentes y módulos CSS |
+| Hooks personalizados para separar lógica de UI | Validación del comportamiento de `useLayoutEffect` frente a `useEffect` |
+| Persistencia multidispositivo de temas en Firestore | Hipótesis de error en los tests de fechas UTC frente a local |
+| Reglas de seguridad de Firestore por UID | Identificación de casos límite en el flujo de `onSnapshot` |
+| Descarte del asistente conversacional | Refactors de componentes y módulos CSS |
 
-### Patrones de uso
+**Metodología de trabajo**
 
-- **Primero entender, después implementar.** Antes de escribir código pedía la explicación del patrón subyacente. Si no quedaba claro, volvía a preguntar con otra formulación.
-- **Opciones con trade-offs antes de decidir.** Cuando había más de una forma de resolver algo, pedía las alternativas y yo elegía según el contexto.
-- **Revisión línea por línea.** Nada entraba al proyecto sin que pudiera explicar qué hace y por qué.
-- **Iteración hasta que quedaba bien.** Varias features se implementaron, descartaron y rehacieron — no por errores técnicos sino porque el resultado no estaba a la altura del resto de la app.
+- **Entender antes de implementar:** se solicitaba la explicación del patrón subyacente antes de escribir código.
+- **Alternativas con sus *trade-offs*:** ante varias soluciones posibles, se evaluaban las opciones y se decidía según el contexto.
+- **Revisión línea por línea:** ningún fragmento entraba al proyecto sin poder explicar qué hace y por qué.
+- **Iteración hasta alcanzar el nivel de calidad esperado:** varias funcionalidades se implementaron, descartaron y rehicieron porque el resultado no estaba a la altura del resto de la aplicación.
 
-### Decisión de alcance: asistente de IA descartado
-
-La guía del PI incluía un asistente conversacional (Tyrion Lannister sobre Gemini API). Lo implementé — llegué a tener la serverless function, el proxy y el system prompt funcionando — pero la evaluación fue clara: agregaba complejidad, dependía de una API key adicional y el resultado no estaba a la altura del resto de la app en UX ni en valor para el usuario. Lo descarté deliberadamente: es preferible tener menos features bien ejecutadas que muchas a medias.
+**Decisión de alcance: asistente de IA descartado.** Se implementó un asistente conversacional sobre la API de Gemini (con función serverless, proxy y *system prompt* funcionando). Tras evaluarlo, se descartó deliberadamente: añadía complejidad, dependía de una API key adicional y su valor para el usuario no justificaba el costo. Se priorizó contar con menos funcionalidades bien ejecutadas.
 
 ---
 
-## 🛠️ Otras herramientas
+## Licencia
 
-| Herramienta | Uso |
-|---|---|
-| Canva | Edición de capturas de pantalla en dispositivos para el README |
-
----
-
-## 👩‍💻 Desarrolladora
-
-Analía Pérez Juliá
-
----
-
-## 📄 Licencia
-
-MIT © 2026 Halina87
+Distribuido bajo licencia **MIT**. Consulta el archivo [`LICENSE`](LICENSE) para más información.
