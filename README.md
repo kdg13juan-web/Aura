@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div align="center">
 
 # Aura
@@ -375,3 +376,6 @@ El proyecto se desarrolló con Claude como copiloto de desarrollo, que asistió 
 ## Licencia
 
 Distribuido bajo licencia **MIT**. Consulta el archivo [`LICENSE`](LICENSE) para más información.
+=======
+
+>>>>>>> 82596bf2fe1e846989f49217c4c3fa2f2df738cc
