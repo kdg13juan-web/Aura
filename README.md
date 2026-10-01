@@ -20,7 +20,7 @@
 ## Vista previa
 
 <div align="center">
-<video src="https://github.com/kdg13juan-web/Aura/blob/main/src/assets/Grabaci%C3%B3n%20de%20pantalla%202026-09-30%20212918.mp4" controls width="380"></video>
+<video src="https://github.com/kdg13juan-web/Aura/blob/main/src/assets/Grabaci%C3%B3n%20de%20pantalla%202026-09-30%20212918" controls width="380"></video>
 </div>
 
 ![HOME](src/assets/1.png)
@@ -172,8 +172,4 @@ La aplicación está desplegada en **Vercel**: <https://aura-drab-ten.vercel.app
 3. Despliega. Cada *push* a `main` genera un nuevo despliegue.
 4. Publica las reglas de `firestore.rules` desde la consola de Firebase o con la CLI (`firebase deploy --only firestore:rules`).
 
----
-
-## Licencia
-
-Distribuido bajo licencia **MIT**. Consulta el archivo [`LICENSE`](LICENSE) para más información.
+--
