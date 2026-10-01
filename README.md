@@ -20,9 +20,9 @@
 ## Vista previa
 
 <div align="center">
-<video src="https://raw.githubusercontent.com/kdg13juan-web/Aura/main/src/assets/Grabaci%C3%B3n%20de%20pantalla%202026-09-30%20212918.mp4" controls playsinline preload="metadata" width="380"></video>
+<video src="https://github.com/user-attachments/assets/ccd7d6ca-9e21-45d6-9c54-23f2c1e2ec6d" controls playsinline preload="metadata" width="380"></video>
 <br>
-<a href="https://raw.githubusercontent.com/kdg13juan-web/Aura/main/src/assets/Grabaci%C3%B3n%20de%20pantalla%202026-09-30%20212918.mp4">Abrir el video directamente</a>
+<a href="https://github.com/user-attachments/assets/ccd7d6ca-9e21-45d6-9c54-23f2c1e2ec6d">Abrir el video directamente</a>
 </div>
 
 ![HOME](src/assets/1.png)
