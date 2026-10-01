@@ -20,7 +20,9 @@
 ## Vista previa
 
 <div align="center">
-<video src="https://github.com/kdg13juan-web/Aura/blob/main/src/assets/Grabaci%C3%B3n%20de%20pantalla%202026-09-30%20212918" controls width="380"></video>
+<video src="https://raw.githubusercontent.com/kdg13juan-web/Aura/main/src/assets/Grabaci%C3%B3n%20de%20pantalla%202026-09-30%20212918.mp4" controls playsinline preload="metadata" width="380"></video>
+<br>
+<a href="https://raw.githubusercontent.com/kdg13juan-web/Aura/main/src/assets/Grabaci%C3%B3n%20de%20pantalla%202026-09-30%20212918.mp4">Abrir el video directamente</a>
 </div>
 
 ![HOME](src/assets/1.png)
@@ -41,6 +43,7 @@
 - [Variables de entorno](#variables-de-entorno)
 - [Scripts disponibles](#scripts-disponibles)
 - [Testing](#testing)
+- [Envío de correo](#envío-de-correo)
 - [Despliegue](#despliegue)
 - [Licencia](#licencia)
 
@@ -160,6 +163,20 @@ Las pruebas se ejecutan con **Vitest** y **React Testing Library** (entorno `jsd
 ```bash
 npm run test:run
 ```
+
+---
+
+## Envío de correo
+
+Aura permite enviar un resumen de agenda a una dirección específica, pero actualmente no envía correos automáticamente a todas las personas que se registran ni ofrece una lista global de destinatarios. Esto se debe a cómo está implementado el flujo, no a que Firebase o AWS SES sean incapaces de enviar mensajes a varios usuarios.
+
+Técnicamente, el cliente llama a `POST /api/send-email` e incluye la dirección en el campo `to`. La función serverless de Vercel valida ese valor y ejecuta AWS SES con `Destination: { ToAddresses: [to] }`, es decir, con un único destinatario por solicitud. En el envío del resumen, `sendTaskSummaryEmail` toma el correo de la cuenta que inició sesión. No hay un proceso que se dispare al registrar una cuenta, ni una consulta que recopile los correos de todos los usuarios para enviarlos en lote.
+
+Además, el modelo de datos no está diseñado como un directorio público de usuarios. Firebase Authentication administra las cuentas, mientras que las reglas de `firestore.rules` permiten leer y escribir cada documento `users/{uid}` solamente a la persona autenticada cuyo UID coincide con ese documento. Esa regla protege los datos personales y evita que un usuario común enumere los perfiles de otros. El registro actual tampoco crea un documento de perfil compartido que una función de correo pueda consultar como lista de destinatarios.
+
+Por lo tanto, agregar a alguien en el módulo de contactos no lo suscribe por sí solo a correos ni lo convierte en un destinatario: el módulo de contactos y el servicio de envío no están conectados para ese propósito. El destinatario del resumen es la dirección indicada por el flujo de envío, actualmente la del usuario que lo solicita.
+
+Para implementar envíos a todos los usuarios registrados de forma segura, haría falta diseñar ese comportamiento explícitamente: una función de backend autenticada y autorizada, acceso administrativo a las cuentas o una colección de suscripciones con consentimiento, un mecanismo de baja, y procesamiento por lotes con límites, reintentos y control de errores. No se debe exponer una lista de correos ni credenciales administrativas en el frontend. También hay que configurar AWS SES: mientras la cuenta esté en modo *sandbox*, SES limita los envíos a direcciones o dominios verificados; para enviar a destinatarios no verificados se debe solicitar el acceso de producción y respetar las cuotas y políticas del servicio.
 
 ---
 
