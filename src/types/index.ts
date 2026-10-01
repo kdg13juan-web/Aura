@@ -1,0 +1,38 @@
+import { Timestamp } from 'firebase/firestore'
+
+export interface Task {
+  id: string
+  userId: string
+  title: string
+  description: string
+  completed: boolean
+  createdAt: Timestamp
+  dueDate?: Timestamp
+  priority?: 'low' | 'medium' | 'high'
+  label?: string
+}
+
+export interface TaskFormValues {
+  title: string
+  description: string
+  dueDate?: string // string en el form, se convierte a Timestamp al guardar
+  priority?: 'low' | 'medium' | 'high'
+  label?: string
+}
+
+export interface AuthFormValues {
+  email: string
+  password: string
+}
+
+export interface RegisterFormValues {
+  name: string
+  email: string
+  password: string
+}
+
+export type TaskFilter = 'all' | 'pending' | 'completed'
+
+export type TaskSort = 'recent' | 'priority' | 'dueDate'
+
+export type Theme = 'classic' | 'midnight' | 'gradient'

@@ -1,0 +1,37 @@
+/* index.css — Punto de entrada de los estilos.
+   Solo orquesta los parciales con @import. El ORDEN importa: va de lo
+   más general/abstracto a lo más específico, porque en CSS lo de abajo
+   pisa lo de arriba cuando la especificidad empata.
+
+   tokens   -> variables de diseño (todo depende de ellas, van primero)
+   base     -> estilos de elementos HTML (reset, tipografía, inputs)
+   components -> primitivas reutilizables (.card, .badge, .empty)
+   buttons  -> sistema de botones
+   forms    -> layout de formularios
+   select   -> componente CustomSelect
+   header   -> header sticky, avatar, menú hamburguesa
+   stats    -> sección de bienvenida y tarjetas de estadísticas
+   toolbar  -> filtros, ordenamiento, toggle de vista
+   modal    -> animaciones, FAB, modal de nueva tarea
+   tasks    -> ítems de tarea, lista, confirmación de borrado masivo
+   grid     -> vista de cuadrícula (TaskGrid, TaskCard)
+   auth     -> vistas de login/registro
+   skeleton -> placeholders de carga
+
+   Nota: Vite une todos estos archivos en un solo CSS al compilar,
+   así que la división no tiene costo de performance. */
+
+@import './tokens.css';
+@import './base.css';
+@import './components.css';
+@import './buttons.css';
+@import './forms.css';
+@import './select.css';
+@import './header.css';
+@import './stats.css';
+@import './toolbar.css';
+@import './modal.css';
+@import './tasks.css';
+@import './grid.css';
+@import './auth.css';
+@import './skeleton.css';

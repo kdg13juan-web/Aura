@@ -1,0 +1,165 @@
+/* components.css — Primitivas reutilizables, no atadas a una vista.
+   Son piezas que pueden aparecer en cualquier pantalla: tarjetas,
+   badges de prioridad, estado vacío. */
+
+/* Tarjeta genérica (la usan el form de tareas y cada item de la lista) */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-4);
+  box-shadow: var(--shadow);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+@media (hover: hover) {
+  .card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent-border);
+    box-shadow: var(--shadow), 0 12px 32px var(--accent-bg);
+  }
+}
+
+/* Frosted glass en nocturno */
+[data-theme="midnight"] .card {
+  background: rgba(22, 25, 41, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Frosted glass en vívido */
+[data-theme="gradient"] .card {
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* Badge de prioridad (low / medium / high) */
+.badge {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 2px var(--space-2);
+  border-radius: 999px;
+}
+
+.badge--low {
+  color: var(--prio-low);
+  background: var(--prio-low-bg);
+}
+
+.badge--medium {
+  color: var(--prio-medium);
+  background: var(--prio-medium-bg);
+}
+
+.badge--high {
+  color: var(--prio-high);
+  background: var(--prio-high-bg);
+}
+
+/* Estado vacío / sin resultados */
+.empty {
+  color: var(--text);
+  text-align: center;
+  padding: var(--space-5) 0;
+}
+
+/* --- Check circular (reemplaza al checkbox nativo) ---
+   Un <input type="checkbox"> al que le sacamos la apariencia nativa y lo
+   redibujamos como un círculo que se llena de verde con un ✓ al completar.
+   Lo usan tanto la lista como el grid. */
+/* all: unset borra TODA la hoja de estilo del navegador para el input,
+   incluyendo las reglas de sizing que causan el óvalo. */
+.task-check {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
+  min-height: 22px;
+  flex-shrink: 0;
+  align-self: flex-start;
+  margin-top: 2px;
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.task-check:not(:disabled):hover {
+  border-color: var(--accent);
+}
+
+.task-check:checked {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.task-check:checked::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 44%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  width: 5px;
+  height: 9px;
+  border: solid var(--accent-contrast);
+  border-width: 0 2px 2px 0;
+}
+
+.task-check:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+
+/* --- Chip de fecha con color semántico ---
+   Rojo (vencida), amarillo (hoy/mañana) o gris (lejana). Lleva un ícono
+   (reloj o calendario). Se usa en lista y grid. */
+.due-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 2px var(--space-2);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.due-chip svg {
+  width: 13px;
+  height: 13px;
+}
+
+.due-chip--red {
+  color: var(--prio-high);
+  background: var(--prio-high-bg);
+}
+
+.due-chip--yellow {
+  color: var(--prio-medium);
+  background: var(--prio-medium-bg);
+}
+
+.due-chip--grey {
+  color: var(--text);
+  background: var(--code-bg);
+}
+
+/* --- Chip de etiqueta (#tag) ---
+   Usa el acento violeta para ser visualmente distinto al badge de prioridad. */
+.label-chip {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 2px var(--space-2);
+  border-radius: 999px;
+  color: var(--accent);
+  background: var(--accent-bg);
+  border: 1px solid var(--accent-border);
+  white-space: nowrap;
+}

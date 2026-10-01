@@ -1,0 +1,80 @@
+/* tasks.css — Componentes de tarea: lista, ítem, título y confirmación de borrado. */
+
+/* En modo lista (hover:hover) los botones de acción son siempre visibles,
+   a diferencia del grid donde se ocultan hasta hacer hover para no saturar. */
+@media (hover: hover) {
+  .task-item .task-card__actions {
+    opacity: 1;
+  }
+}
+
+/* ── Lista de tareas ────────────────────────────────────────── */
+.task-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.task-item {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  border-radius: 22px;
+}
+
+.task-item.is-completed { opacity: 0.62; }
+
+.task-title {
+  flex: 1;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.35;
+  word-break: break-word;
+  color: var(--text-h);
+}
+
+.task-title.is-completed {
+  text-decoration: line-through;
+  color: var(--text);
+}
+
+.task-actions { display: flex; gap: var(--space-2); justify-content: center; }
+
+/* ── Strip de confirmación de eliminación masiva ────────────── */
+.delete-confirm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-3);
+  background: var(--danger-bg);
+  border-left: 4px solid var(--danger);
+  border-radius: var(--radius);
+}
+
+.delete-confirm__text {
+  font-size: 0.875rem;
+  color: var(--danger);
+  line-height: 1.4;
+}
+
+.delete-confirm__actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+@media (min-width: 540px) {
+  .delete-confirm {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .delete-confirm__actions {
+    flex-shrink: 0;
+  }
+}

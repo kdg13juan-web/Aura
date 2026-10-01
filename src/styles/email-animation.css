@@ -1,0 +1,89 @@
+/* EmailSendAnimation — Pantalla completa overlay animada */
+
+.email-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background: rgba(5, 8, 22, 0.88);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  animation: emailFadeIn 0.3s ease;
+}
+
+.email-envelope {
+  font-size: 88px;
+  line-height: 1;
+  animation: emailFly 2.8s ease-in-out forwards;
+}
+
+.email-overlay__title {
+  color: #fff;
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-bottom: 8px;
+}
+
+.email-overlay__subtitle {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 15px;
+}
+
+.email-dots {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.email-dots__dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #5c7cfa;
+}
+
+.email-dots__dot--1 {
+  animation: emailDotPulse 1.1s ease infinite;
+}
+
+.email-dots__dot--2 {
+  animation: emailDotPulse 1.1s ease 0.22s infinite;
+}
+
+.email-dots__dot--3 {
+  animation: emailDotPulse 1.1s ease 0.44s infinite;
+}
+
+/* Animaciones */
+
+@keyframes emailFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes emailFly {
+  0%   { transform: scale(0.2) rotate(-15deg); opacity: 0; }
+  25%  { transform: scale(1.15) rotate(5deg); opacity: 1; }
+  60%  { transform: scale(1) rotate(0deg) translate(0, 0); opacity: 1; }
+  100% { transform: scale(0.2) rotate(20deg) translate(300px, -260px); opacity: 0; }
+}
+
+@keyframes emailDotPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.85); }
+}
+
+/* Accesibilidad */
+
+@media (prefers-reduced-motion: reduce) {
+  .email-envelope {
+    animation: none;
+  }
+  .email-dots__dot {
+    animation: none;
+  }
+}

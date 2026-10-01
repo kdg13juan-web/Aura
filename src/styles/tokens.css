@@ -1,0 +1,137 @@
+/* tokens.css — Design tokens.
+   Tema via data-theme en <html>: classic / midnight / gradient.
+   useTheme.ts aplica el atributo con useLayoutEffect (sin flash). */
+
+/* ── Tema clásico (default) ────────────────────────────────── */
+:root,
+[data-theme="classic"] {
+  color-scheme: light;
+  --bg: #eef2ff;
+  --surface: #ffffff;
+  --toast-bg: #ffffff;
+  --toast-color: #1e2140;
+  --border: #e2e8f0;
+  --code-bg: #f8faff;
+  --text: #4f5882;
+  --text-h: #1e2140;
+  --accent: #4f6ef7;
+  --accent-bg: rgba(79, 110, 247, 0.1);
+  --accent-border: rgba(79, 110, 247, 0.3);
+  --accent-contrast: #ffffff;
+  --danger: #dc2626;
+  --danger-bg: rgba(220, 38, 38, 0.1);
+  --shadow: 0 4px 24px rgba(79, 110, 247, 0.14), 0 1px 4px rgba(0, 0, 0, 0.06);
+
+  --prio-high: #dc2626;
+  --prio-high-bg: #fef2f2;
+  --prio-medium: #d97706;
+  --prio-medium-bg: #fffbeb;
+  --prio-low: #16a34a;
+  --prio-low-bg: #f0fdf4;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --radius: 10px;
+  --page-pad: var(--space-4);
+
+  --sans: 'Outfit', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --heading: 'Outfit', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --page-pad: var(--space-6);
+  }
+}
+
+/* ── Tema nocturno (midnight) ───────────────────────────────── */
+[data-theme="midnight"] {
+  color-scheme: dark;
+  --bg: #0d0f1a;
+  --surface: #161929;
+  --toast-bg: #1e2240;
+  --toast-color: #e8eaf6;
+  --border: #252848;
+  --code-bg: #1e2240;
+  --text: #7986cb;
+  --text-h: #e8eaf6;
+  --accent: #5c7cfa;
+  --accent-bg: #1a1f3a;
+  --accent-border: rgba(92, 124, 250, 0.5);
+  --accent-contrast: #ffffff;
+  --danger: #f87171;
+  --danger-bg: rgba(248, 113, 113, 0.15);
+  --shadow: 0 4px 20px rgba(92, 124, 250, 0.18), 0 1px 4px rgba(0, 0, 0, 0.4);
+
+  --prio-high: #f87171;
+  --prio-high-bg: #3d0e0e;
+  --prio-medium: #fbbf24;
+  --prio-medium-bg: #3d2a06;
+  --prio-low: #4ade80;
+  --prio-low-bg: #0a2a14;
+}
+
+/* ── Tema degradado (gradient) ──────────────────────────────── */
+[data-theme="gradient"] {
+  color-scheme: dark;
+  --bg: linear-gradient(145deg, #1e2f9e 0%, #4f6ef7 52%, #7c3aed 100%);
+  --surface: rgba(255, 255, 255, 0.1);
+  --toast-bg: rgba(22, 16, 68, 0.88);
+  --toast-color: #ffffff;
+  --border: rgba(255, 255, 255, 0.16);
+  --code-bg: rgba(255, 255, 255, 0.08);
+  --text: rgba(255, 255, 255, 0.72);
+  --text-h: #ffffff;
+  --accent: #ffffff;
+  --accent-bg: rgba(255, 255, 255, 0.12);
+  --accent-border: rgba(255, 255, 255, 0.4);
+  --accent-contrast: #4f6ef7;
+  --danger: #fca5a5;
+  --danger-bg: rgba(252, 165, 165, 0.18);
+  --shadow: 0 6px 28px rgba(0, 0, 0, 0.25), 0 1px 4px rgba(0, 0, 0, 0.15);
+
+  --prio-high: #fca5a5;
+  --prio-high-bg: rgba(239, 68, 68, 0.2);
+  --prio-medium: #fde68a;
+  --prio-medium-bg: rgba(245, 158, 11, 0.2);
+  --prio-low: #6ee7b7;
+  --prio-low-bg: rgba(16, 185, 129, 0.2);
+}
+
+/* El gradient no debe scrollear con el contenido */
+[data-theme="gradient"] body {
+  color-scheme: dark;
+  background-attachment: fixed;
+}
+
+/* Fallback OS: usa midnight si el sistema prefiere dark
+   y el usuario nunca eligió un tema manualmente. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --bg: #0d0f1a;
+    --surface: #161929;
+    --border: #252848;
+    --code-bg: #1e2240;
+    --text: #7986cb;
+    --text-h: #e8eaf6;
+    --accent: #5c7cfa;
+    --accent-bg: #1a1f3a;
+    --accent-border: rgba(92, 124, 250, 0.5);
+    --accent-contrast: #ffffff;
+    --danger: #f87171;
+    --danger-bg: rgba(248, 113, 113, 0.15);
+    --shadow: 0 4px 20px rgba(92, 124, 250, 0.18), 0 1px 4px rgba(0, 0, 0, 0.4);
+
+    --prio-high: #f87171;
+    --prio-high-bg: #3d0e0e;
+    --prio-medium: #fbbf24;
+    --prio-medium-bg: #3d2a06;
+    --prio-low: #4ade80;
+    --prio-low-bg: #0a2a14;
+  }
+}

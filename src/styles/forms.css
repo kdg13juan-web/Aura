@@ -1,0 +1,61 @@
+/* forms.css — Layout de formularios compuestos.
+   El estilo de los inputs nativos vive en base.css; acá va solo
+   cómo se ACOMODAN los campos dentro de un formulario. */
+
+.task-form,
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+
+/* Ocultar visualmente pero mantener accesible para lectores de pantalla y tests */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.task-form .task-panel__meta input,
+.task-form .task-panel__meta select {
+  text-align: center;
+}
+
+/* En grid las cards son angostas: 2 columnas en lugar de 4 */
+.task-card .task-panel__meta {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+
+/* Grilla de 4 columnas para los campos opcionales */
+.task-panel__meta {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3);
+}
+
+@media (max-width: 640px) {
+  .task-panel__meta {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Separador de sección "Opcionales" */
+.task-panel__optional-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text);
+  opacity: 0.55;
+  margin: 0;
+}
+

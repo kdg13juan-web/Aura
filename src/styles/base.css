@@ -1,0 +1,194 @@
+/* base.css — Estilos de ELEMENTOS HTML (sin clases).
+   Reset suave, layout raíz, tipografía y controles de formulario nativos. */
+
+* {
+  box-sizing: border-box;
+}
+
+/* overflow-x: clip corta el desbordamiento horizontal sin crear un scroll
+   container (a diferencia de hidden), así position: sticky sigue funcionando. */
+html {
+  overflow-x: clip;
+}
+
+body {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.1px;
+  color-scheme: light dark;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Contenedor central. --page-pad se define en tokens.css y es responsivo. */
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: var(--space-5) var(--page-pad);
+  min-height: 100svh;
+}
+
+/* --- Tipografía --- */
+h1, h2 {
+  font-family: var(--heading);
+  font-weight: 700;
+  color: var(--text-h);
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 1.75rem;
+  letter-spacing: -0.5px;
+  margin: 0 0 var(--space-4);
+}
+
+h2 {
+  font-size: 1.25rem;
+  margin: 0 0 var(--space-2);
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--accent);
+}
+
+code {
+  font-family: var(--mono);
+  font-size: 0.9em;
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--text-h);
+  background: var(--code-bg);
+}
+
+/* --- Controles de formulario nativos --- */
+/* :not([type='checkbox']) evita que el checkbox herede width:100% y border,
+   que piearían a .task-check por mayor especificidad de input[type='checkbox']. */
+input:not([type='checkbox']),
+textarea,
+select {
+  width: 100%;
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-h);
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 13px 15px;
+  transition: border-color 0.2s;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text);
+  opacity: 0.6;
+}
+
+/* Autofill en clásico/nocturno: tapa el fondo gris del browser con el color de superficie del tema. */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px var(--surface) inset;
+  box-shadow: 0 0 0px 1000px var(--surface) inset;
+  -webkit-text-fill-color: var(--text-h);
+  caret-color: var(--text-h);
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+/* Las <option> las renderiza el SO: no leen CSS variables ni heredan el tema.
+   Forzamos colores neutros hardcodeados para que sean legibles en todos los temas. */
+select option {
+  background-color: #ffffff;
+  color: #1e2140;
+}
+
+textarea {
+  min-height: 72px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-bg);
+}
+
+
+/* Solo accent-color para checkboxes nativos; .task-check maneja todo lo demás. */
+input[type='checkbox'] {
+  accent-color: var(--accent);
+}
+
+/* Inputs de fecha/hora: mismo estilo que el text pero con ajuste de padding
+   para que el ícono nativo del browser no quede aplastado. */
+input[type='date'],
+input[type='time'] {
+  padding: 11px 13px;
+}
+
+label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--text);
+  margin-bottom: var(--space-1);
+}
+
+/* En pantallas grandes el título principal respira un poco más */
+@media (min-width: 640px) {
+  h1 {
+    font-size: 2rem;
+  }
+}
+
+/* ── Toast con botón de deshacer ─────────────────────────────── */
+.toast-undo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9rem;
+}
+
+.toast-undo__btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--accent);
+  padding: 0;
+  font-size: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.toast-undo__btn:hover {
+  opacity: 0.8;
+}
+
+/* ── Footer ──────────────────────────────────────────────────── */
+.app-footer {
+  margin-top: var(--space-6, 48px);
+  padding: var(--space-4) 0;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text);
+  opacity: 0.55;
+}

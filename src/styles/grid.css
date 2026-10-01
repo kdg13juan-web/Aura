@@ -1,0 +1,287 @@
+/* grid.css — Vista grid de tareas (cards). */
+
+/* ── Animación de entrada ────────────────────────────────────── */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Grilla responsiva ───────────────────────────────────────── */
+.task-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+}
+
+@media (min-width: 600px) {
+  .task-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 860px) {
+  .task-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ── Secciones (Pendientes / Completadas) ────────────────────── */
+.task-grid-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.task-section__title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text);
+  margin: var(--space-4) 0 var(--space-3);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--border);
+}
+
+.section-clean-btn {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #e53e3e;
+  background: #fff5f5;
+  border: 1px solid #feb2b2;
+  opacity: 0.45;
+  transition: background 0.12s, border-color 0.12s, opacity 0.15s;
+}
+
+.section-clean-btn:hover {
+  background: #fed7d7;
+  border-color: #e53e3e;
+  opacity: 1;
+}
+
+/* ── Card ────────────────────────────────────────────────────── */
+.task-card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: 18px 20px;
+  border-radius: 22px;
+  animation: slideUp 0.4s ease;
+}
+
+.task-card.is-completed {
+  opacity: 0.62;
+}
+
+/* Barra de color en el lado IZQUIERDO — fina, con las esquinas redondeadas del card */
+.task-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 3px;
+  border-radius: 22px 0 0 22px;
+}
+
+
+/* ── Head: checkbox + columna de contenido ───────────────────── */
+.task-card__head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  /* padding-right para que el contenido no quede detrás de los botones absolutos */
+  padding-right: 56px;
+}
+
+/* Columna que contiene título Y descripción — ambos alineados al mismo nivel */
+.task-card__content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* Título: más grande y bold para jerarquía visual clara */
+.task-card .task-title {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.35;
+  word-break: break-word;
+}
+
+/* ── Botones de acción: × arriba, ✏ abajo — esquina superior derecha ── */
+.task-card__actions {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  z-index: 1;
+}
+
+/* En dispositivos con hover real: ocultar hasta que se pase el cursor */
+@media (hover: hover) {
+  .task-card__actions {
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+
+  .task-card:hover .task-card__actions,
+  .task-card:focus-within .task-card__actions {
+    opacity: 1;
+  }
+}
+
+.task-card__btn {
+  all: unset;
+  box-sizing: border-box;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+  color: var(--text);
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.task-card__btn svg {
+  width: 13px;
+  height: 13px;
+}
+
+.task-card__btn:hover {
+  background: var(--border);
+  color: var(--text-h);
+}
+
+.task-card__btn--del {
+  color: var(--danger);
+  background: var(--danger-bg);
+  border-color: transparent;
+  font-size: 1.1rem;
+}
+
+.task-card__btn--del:hover {
+  background: var(--danger);
+  color: #fff;
+}
+
+/* ── Descripción expandable ──────────────────────────────────── */
+.task-card__desc {
+  font-size: 0.8rem;
+  color: var(--text);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.task-card__desc.is-expanded {
+  display: block;
+  overflow: visible;
+}
+
+.task-card__desc-wrapper {
+  position: relative;
+}
+
+.task-card__desc-fade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1.5em;
+  background: linear-gradient(transparent, var(--surface));
+  pointer-events: none;
+}
+
+.task-card__see-more {
+  all: unset;
+  box-sizing: border-box;
+  font-size: 0.72rem;
+  color: var(--accent);
+  cursor: pointer;
+  line-height: 1;
+}
+
+.task-card__see-more:hover {
+  text-decoration: underline;
+}
+
+/* ── Footer: prioridad · fecha · hora · etiqueta ─────────────── */
+.task-card__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: auto;
+}
+
+/* Badge con dot de color — texto capitalizado */
+.badge--dot {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px var(--space-2);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.badge--dot::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.badge--dot.badge--low    { color: var(--prio-low);    background: var(--prio-low-bg); }
+.badge--dot.badge--low::before    { background: var(--prio-low); }
+
+.badge--dot.badge--medium { color: var(--prio-medium); background: var(--prio-medium-bg); }
+.badge--dot.badge--medium::before { background: var(--prio-medium); }
+
+.badge--dot.badge--high   { color: var(--prio-high);   background: var(--prio-high-bg); }
+.badge--dot.badge--high::before   { background: var(--prio-high); }
+
+/* ── Chip de hora (separado del chip de fecha) ───────────────── */
+.time-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px var(--space-2);
+  border-radius: 999px;
+  white-space: nowrap;
+  color: var(--text);
+  background: var(--code-bg);
+}
